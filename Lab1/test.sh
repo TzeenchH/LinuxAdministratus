@@ -14,4 +14,4 @@ pryvet ya chaika
 
 msgend
 sleep 150 
-echo " continuing....
+echo " continuing...."
