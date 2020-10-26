@@ -50,6 +50,38 @@ else
 	exit 4
 fi
 
+temp=/tmp/log_d.tmp
+curdt=$(date "+%d/%b/%Y:%T")
+curdt=$(date +%s)
+my_str="ЗАПИСИ ОБРАБОТАНЫ "$current_data
+echo "Current date: $curdt"
+
+#Check if parser 
+if [ -f $temp ]
+then
+	ldseq=$(cat $temp | tail -n 1)
+	ld=$(date --date=@$ldseq "+%d/%b/%Y:%T")
+	echo "Прошлая дата анализа: $last_data"
+fi
+
+# Count new records
+echo "Search for new records"
+#date "+%s" --date="$(tail -n1 nginx_logs | awk -F "[" {'print $2'} | awk {'print $1'} | sed "s/\//\ /g" | sed "s/:/ /" )"
+nrecc=$( tac $1 | awk '{  if ( $1=="ЗАПИСИ" && $2=="ОБРАБОТАНЫ" ) exit 0 ; else print }' | wc -l || true )
+	
+	if [ $nrecc -le 0 ]
+	then
+		echo "In $1 has no new recordes"
+		echo $cdseq >> $temp
+		exit 0
+	fi
+	#let new_records_count--
+	echo "New records count: $nrecc"
+	echo $my_str >> $1
+
+	sttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $new_records_count | sort -n | head -n1 | awk -F"[" '{print $2}' || true)
+	finttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $new_records_count | sort -nr | head -n1 | awk -F"[" '{print $2}' || true)
+	
 ## functions block
 top_links {
 tmp_top_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | head -$CNT )
