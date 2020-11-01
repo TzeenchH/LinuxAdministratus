@@ -53,7 +53,7 @@ fi
 temp=/tmp/log_d.tmp
 curdt=$(date "+%d/%b/%Y:%T")
 curdt=$(date +%s)
-my_str="ЗАПИСИ ОБРАБОТАНЫ "$current_data
+
 echo "Current date: $curdt"
 
 #Check if parser 
@@ -79,53 +79,84 @@ nrecc=$( tac $1 | awk '{  if ( $1=="ЗАПИСИ" && $2=="ОБРАБОТАНЫ" 
 	echo "New records count: $nrecc"
 	echo $my_str >> $1
 
-	sttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $new_records_count | sort -n | head -n1 | awk -F"[" '{print $2}' || true)
-	finttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $new_records_count | sort -nr | head -n1 | awk -F"[" '{print $2}' || true)
+	sttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $nrecc | sort -n | head -n1 | awk -F"[" '{print $2}' || true)
+	finttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $nrecc | sort -nr | head -n1 | awk -F"[" '{print $2}' || true)
 	
 ## functions block
-top_links {
+top_links() {
 tmp_top_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | head -$CNT )
 
+
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
 printf "Top" "$CNT" "links\n"
 printf "====================\n"
 printf "$tmp_top_l"
 exit 0
 }
 
-low_links {
-tmp_low_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | tail -$CNT )
-                                                                                                                 
+low_links() {
+tmp_low_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | tail -$CNT )                                                                                                                 
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
 printf "Low" "$CNT" "links\n"
 printf "====================\n"
 printf "$tmp_low_l"
 exit 0
 }
 
-top_routes {
+top_routes() {
 tmp_top_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | head -$CNT )
 
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
 printf "Top" "$CNT" "routes\n"
 printf "=====================\n"
 printf "$tmp_top_r"
 exit 0
 }
 
-low_routes {
+low_routes() {
 tmp_low_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | tail -$CNT )
 
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
 printf "Low" "$CNT" "routes\n"
 printf "=====================\n"
 printf "$tmp_low_r"
 exit 0
 }
 
-error_list {
+error_list() {
 tmp_err_l=$( cat ${FILE_TO_EXPLORE} | awk ' $9 ~ /^[54]/ {print $9}' | sort -n | uniq -c | sort -nr )
 
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
 printf "Error List"
 printf "============"
 printf "$tmp_err_l"
 exit 0
+}
+
+sdelat_krasivo() {
+tmp_top_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | head -$CNT )
+tmp_err_l=$( cat ${FILE_TO_EXPLORE} | awk ' $9 ~ /^[54]/ {print $9}' | sort -n | uniq -c | sort -nr )
+tmp_low_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | tail -$CNT )
+tmp_top_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | head -$CNT )
+tmp_low_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | tail -$CNT )                                                                                                                 
+printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "Top" "$CNT" "links\n"
+printf "====================\n"
+printf "$tmp_top_l"
+printf "Low" "$CNT" "links\n"
+printf "====================\n"
+printf "$tmp_low_l"
+printf "Top" "$CNT" "routes\n"
+printf "=====================\n"
+printf "$tmp_top_r"
+printf "Low" "$CNT" "routes\n"
+printf "=====================\n"
+printf "$tmp_low_r"
+printf "Error List"
+printf "============"
+printf "$tmp_err_l"
+exit 0
+
 }
 ## end of functions-block
 case $2 in
@@ -143,6 +174,9 @@ case $2 in
 	;;
 	errors)
 	error_list
+	;;
+	sdelat_krasivo)
+	sdelat_krasivo
 	;;
 	*)
 	echo "option name not found"
