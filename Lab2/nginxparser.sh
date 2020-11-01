@@ -43,7 +43,7 @@ then
 fi
 CNT=$3
 ## check if options parameter ist`t empty
-if [[ -n $2 ]]
+if [[ ! -n $2 ]]
 then
 else
 	echo "searcting option required"
