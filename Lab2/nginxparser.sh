@@ -43,7 +43,7 @@ then
 fi
 CNT=$3
 ## check if options parameter ist`t empty
-if [[ -n $2 ]]
+if [[ ! -n $2 ]]
 then
 else
 	echo "searcting option required"
@@ -77,7 +77,6 @@ nrecc=$( tac $1 | awk '{  if ( $1=="ЗАПИСИ" && $2=="ОБРАБОТАНЫ" 
 	fi
 	#let new_records_count--
 	echo "New records count: $nrecc"
-	echo $my_str >> $1
 
 	sttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $nrecc | sort -n | head -n1 | awk -F"[" '{print $2}' || true)
 	finttr=$(cat $1 | head --line -1 | cut -d ' ' -f 4 | tail -n $nrecc | sort -nr | head -n1 | awk -F"[" '{print $2}' || true)
@@ -86,8 +85,8 @@ nrecc=$( tac $1 | awk '{  if ( $1=="ЗАПИСИ" && $2=="ОБРАБОТАНЫ" 
 top_links() {
 tmp_top_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | head -$CNT )
 
-
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "records handled "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Top" "$CNT" "links\n"
 printf "====================\n"
 printf "$tmp_top_l"
@@ -96,7 +95,8 @@ exit 0
 
 low_links() {
 tmp_low_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | tail -$CNT )                                                                                                                 
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "records handled "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Low" "$CNT" "links\n"
 printf "====================\n"
 printf "$tmp_low_l"
@@ -106,7 +106,8 @@ exit 0
 top_routes() {
 tmp_top_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | head -$CNT )
 
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "ЗАПИСИ ОБРАБОТАНЫ "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Top" "$CNT" "routes\n"
 printf "=====================\n"
 printf "$tmp_top_r"
@@ -116,7 +117,8 @@ exit 0
 low_routes() {
 tmp_low_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | tail -$CNT )
 
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "records handled "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Low" "$CNT" "routes\n"
 printf "=====================\n"
 printf "$tmp_low_r"
@@ -126,7 +128,8 @@ exit 0
 error_list() {
 tmp_err_l=$( cat ${FILE_TO_EXPLORE} | awk ' $9 ~ /^[54]/ {print $9}' | sort -n | uniq -c | sort -nr )
 
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "records handled "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Error List"
 printf "============"
 printf "$tmp_err_l"
@@ -139,7 +142,8 @@ tmp_err_l=$( cat ${FILE_TO_EXPLORE} | awk ' $9 ~ /^[54]/ {print $9}' | sort -n |
 tmp_low_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | tail -$CNT )
 tmp_top_r=$( cat ${FILE_TO_EXLORE} | awk '{print $7}' | sort -n | uniq -c | sort -nr | head -$CNT )
 tmp_low_l=$( cat ${FILE_TO_EXPLORE} | awk '{print $1}' | sort -n | uniq -c | sort -nr | tail -$CNT )                                                                                                                 
-printf "ЗАПИСИ ОБРАБОТАНЫ "$current_data \n
+printf "records handled "$curdt \n
+echo "records handled "$curdt >> $1
 printf "Top" "$CNT" "links\n"
 printf "====================\n"
 printf "$tmp_top_l"
