@@ -42,3 +42,6 @@ then
         exit 0
 fi
 ```
+Далее выдаём скрипту права на исполнение командой `sudo chmod +x`. после этого вносим в файл `/etc/pam.d/sshd` строку `account    required    pam_script.so` 
+
+![](https://sun9-56.userapi.com/impg/EnH5sbOL9zW2FoGE5Ww1kswp5P3rb77PWzLXVw/IyBkgjPWu0E.jpg?size=865x401&quality=96&proxy=1&sign=46eb465d2a95b9b2dc1d7d5592d58daf)
