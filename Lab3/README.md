@@ -54,6 +54,7 @@ fi
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh
 ```
+## 2. Дать конкретному пользователю права работать с докером.
 после этого выполним команду `suddo usermod -aG docker Username` чтобы добавить пользователя в группу docker - она создаётся автоматически при установке пакета. Проверим корректность - перейдём в аккаунт добавленного пользователя и выполним команду `docker run hello world`. Как видим, установка докера и выдача прав прошли корректно:
 ![](https://sun9-33.userapi.com/impg/NQImWSymvUPDzEFLrviD3DB7-2-fvTOkwllN0w/1gSm97RATGU.jpg?size=762x175&quality=96&proxy=1&sign=16000164d7d84856bfee74960ecd34ac)
 ![](https://sun9-60.userapi.com/impg/tsS3He2rqUVSN7i1qmevOeOJHYgLPYUgkT-NfQ/fbWS9NlOJy0.jpg?size=797x155&quality=96&proxy=1&sign=b6926b68228d13d502afc2ab17f422f3)
