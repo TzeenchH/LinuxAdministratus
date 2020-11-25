@@ -45,3 +45,22 @@ fi
 Далее выдаём скрипту права на исполнение командой `sudo chmod +x`. после этого вносим в файл `/etc/pam.d/sshd` строку `account    required    pam_script.so` 
 
 ![](https://sun9-56.userapi.com/impg/EnH5sbOL9zW2FoGE5Ww1kswp5P3rb77PWzLXVw/IyBkgjPWu0E.jpg?size=865x401&quality=96&proxy=1&sign=46eb465d2a95b9b2dc1d7d5592d58daf)
+
+# Часть 2. Работа с правами docker.
+## 1. Установить докер
+установка докера производилась по [официальной инструкции](https://docs.docker.com/engine/install/)
+
+```bash
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
+```
+после этого выполним команду `suddo usermod -aG docker Username` чтобы добавить пользователя в группу docker - она создаётся автоматически при установке пакета. Проверим корректность - перейдём в аккаунт добавленного пользователя и выполним команду `docker run hello world`. Как видим, установка докера и выдача прав прошли корректно:
+![](https://sun9-33.userapi.com/impg/NQImWSymvUPDzEFLrviD3DB7-2-fvTOkwllN0w/1gSm97RATGU.jpg?size=762x175&quality=96&proxy=1&sign=16000164d7d84856bfee74960ecd34ac)
+![](https://sun9-60.userapi.com/impg/tsS3He2rqUVSN7i1qmevOeOJHYgLPYUgkT-NfQ/fbWS9NlOJy0.jpg?size=797x155&quality=96&proxy=1&sign=b6926b68228d13d502afc2ab17f422f3)
+
+теперь пользователю доступны команды докера без необходимости повышения своих прав через sudo
+```
+docker ps -a
+docker images
+docker search
+```
