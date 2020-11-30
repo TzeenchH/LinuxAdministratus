@@ -101,7 +101,7 @@ ls /mnt
 ![](https://sun9-57.userapi.com/impg/8MJPJZ0N4IU9e0zDQLxR6Kx4UfGttTwmbiacIw/5iYbSveS-ts.jpg?size=788x125&quality=96&proxy=1&sign=5f18c80500c8cbebe56aeed60941b4e5)
 
 ## 8. Сделать зеркало.
-Для этого понадобится добавить еще устройств в PV, их я заготовил заранее аналогичным образом.  После создадим VG `sudo vgcreate labgrMirror /dev/sd{d,e}` и смонтируем LV с флагом того, что она является зеркалом `sudo lvcreate -l+100%FREE -m1 -n fMirror labgrMirror`:
+Для этого понадобится добавить еще устройств в PV, их я заготовил заранее аналогичным образом.  После создадим VG `sudo vgcreate labgrMirror /dev/sd{d,e}` и смонтируем LV с флагом того, что она монтируется с созданием зеркала `sudo lvcreate -l+100%FREE -m1 -n fMirror labgrMirror`:
 
 ![](https://sun9-14.userapi.com/impg/Jxe2WM7rYTVlgwEFnStxYJvX4B0TCFOmrFTNew/xUn0qS6K-5A.jpg?size=405x130&quality=96&proxy=1&sign=61edcb86c5ce147d985c8a1882c04530)
 
