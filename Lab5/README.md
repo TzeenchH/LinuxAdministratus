@@ -58,7 +58,7 @@ sudo df -h
 sudo umount /mnt
 sudo fsck -fy /dev/labgr/first
 sudo resize2fs /dev/labgr/first 2100M             
-sudo resize2fs -M /dev/labgr/first
+//sudo resize2fs -M /dev/labgr/first чтобы ужать систему до возножного минимума
 sudo mount /dev/labgr/first /mnt
 sudo df -h
 ```
