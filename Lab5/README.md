@@ -78,7 +78,7 @@ sudo lsblk
 ![](https://sun9-10.userapi.com/impg/0mXoEC3xi4ZmbSAKQAa7irTW4hUR0VzvrMciIg/WhC6qwI2FIc.jpg?size=933x727&quality=96&proxy=1&sign=545d54292e1b04c0906f1f45ec470bc0)
 
 ## 6. Удалить файлы и после монтирования снимка убедиться, что созданные нами файлы присутствуют.
-Удалим файлы командой `sudo rm -f /mnt/fillerfile{1..3}`, после чего восстановим удалённые файлы с помощью монтирования снапшота в систему командами 
+Удалим файлы командой `sudo rm -f /mnt/fillerfile{1..3}`, после чего проверим есть ли удалённые файлы на снапшоте 
 ```bash
 sudo mkdir /snapsh
 sudo mount /dev/mai/log_snapsh /snapsh
